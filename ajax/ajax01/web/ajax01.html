@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>ajax01</title>
+</head>
+<body>
+<input type="button" value="AJAX" id="ajax">
+<div id="mydiv"></div>
+<script>
+    window.onload = function (){
+       document.getElementById("ajax").onclick = function () {
+           var xhr = new XMLHttpRequest();
+           xhr.onreadystatechange = function () {
+                if (xhr.readyState == 4){
+                    if (this.status == 404){
+                        alert("对不起，您访问的资源不存在");
+                    }else if (this.status == 500){
+                        alert("对不起，服务器内部发生错误");
+                    }else if (this.status == 200){
+                        var elementById = document.getElementById("mydiv");
+                        elementById.innerHTML = this.responseText;
+                    }
+                }
+           }
+           xhr.open("GET","/ajax01/request",true);
+           xhr.send();
+       }
+    }
+</script>
+</body>
+</html>
